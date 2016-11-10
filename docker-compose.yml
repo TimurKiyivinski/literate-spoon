@@ -1,0 +1,10 @@
+version: "2"
+services:
+  apache:
+    image: php:5-apache
+    volumes:
+      - "./htdocs:/var/www/html/"
+      - "./data:/var/www/data/"
+    ports:
+      - "80:80"
+      - "443:443"
