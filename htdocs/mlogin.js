@@ -5,20 +5,23 @@
   const formError = $('#formError')
 
   submit.onclick = () => {
-    const email = $('#formEmail').value
+    const username = $('#formUsername').value // To keep things simple, alias as email
     const password = $('#formPassword').value
 
-    if (!re.email(email)) {
-      formError.innerHTML = 'Invalid email provided'
+    if (!re.name(username)) {
+      formError.innerHTML = 'Invalid username provided'
       return
     }
 
     formError.innerHTML = ''
 
-    _.post('login.php', data => {
-      console.log('Server responded with the following:', data)
+    _.post('customer.php', data => {
+      if (data.err) {
+        formError.innerHTML = data.message
+      }
     }, {
-      email: email,
+      method: 'login',
+      email: username,
       password: password,
       manager: true
     })

@@ -1,6 +1,22 @@
 <?php
 include('model.php');
+ini_set('auto_detect_line_endings', true);
 header('Content-Type: application/json');
+
+function read_csv($file_name)
+{
+    $csv = [];
+    $csv_file = fopen($file_name, 'r');
+    if ($csv_file !== false)
+    {
+        while (($row = fgetcsv($csv_file)) !== false)
+        {
+            $csv[] = $row;
+        }
+    }
+    fclose($csv_file);
+    return $csv;
+}
 
 class Customer extends Model {
     // XML file
@@ -52,6 +68,29 @@ if (isset($POST['method'])) {
             isset($POST['manager'])) {
             if ($POST['manager']) {
                 // Manager login
+                $managers = read_csv('../data/manager.txt');
+                foreach ($managers as $manager) {
+                    if ($POST['email'] == $manager[0]) {
+                        if ($POST['password'] == $manager[1]) {
+                            // Return manager id on success
+                            echo json_encode([
+                                'err' => false,
+                                'id' => $manager[0]
+                            ]);
+                        } else {
+                            // Return error if password is wrong
+                            echo json_encode([
+                                'err' => true,
+                                'message' => 'Invalid password'
+                            ]);
+                        }
+                    }
+                    return;
+                }
+                echo json_encode([
+                    'err' => true,
+                    'message' => 'Username is not registered in system'
+                ]);
             } else {
                 // Customer login
                 $customer = Customer::where('email', $POST['email']);
