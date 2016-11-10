@@ -33,10 +33,12 @@ const re = {
   emailRegex: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
   nameRegex: /^[a-zA-Z\s]*$/,
   phoneRegex: /(\(0[\d]\)|0[\d] )\d{8}$/,
+  numberRegex: /^\d+$/,
   len: input => input.length > 0,
   email: input => re.emailRegex.test(input),
   name: input => re.len(input) && re.nameRegex.test(input),
   phone: input => re.phoneRegex.test(input),
+  number: input => re.numberRegex.test(input),
   passwords: (a, b) => a === b && a.length > 0
 }
 
