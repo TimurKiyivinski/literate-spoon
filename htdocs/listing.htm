@@ -5,6 +5,29 @@
         <link rel="stylesheet" type="text/css" href="app.css"/>
     </head>
     <body>
+        <div class="col-4">
+            <ul class="nav">
+                <li><a href="listing.htm">Listing</a></li>
+                <li><a href="processing.htm">Processing</a></li>
+                <li><a href="logout.htm">Logout</a></li>
+            </ul>
+        </div>
+        <div class="col-8">
+            <h1>Add new item</h1>
+            <p class="error" id="formError"></p>
+            <form>
+                <label for="name">Item name:</label>
+                <input type="text" name="name" id="formName"/>
+                <label for="price">Item price:</label>
+                <input type="text" name="price" id="formPrice"/>
+                <label for="quantity">Item quantity:</label>
+                <input type="text" name="quantity" id="formQuantity"/>
+                <label for="name">Item description:</label>
+                <textarea id="formDescription"></textarea>
+                <button type="button" id="formButton">Add Item</button>
+                <button type="button" id="formButton">Reset Form</button>
+            </form>
+        </div>
         <script type="text/javascript" src="app.js"></script>
     </body>
 </html>
