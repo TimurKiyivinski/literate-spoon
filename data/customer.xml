@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<customers>
+    <customer>
+        <id>58247ec5ab5fc58247ec5ab631</id>
+        <fname>Timur</fname>
+        <lname>Kiyivinski</lname>
+        <email>timur@linux.com</email>
+        <password>abc123</password>
+        <contact>01 23456789</contact>
+    </customer>
+</customers>

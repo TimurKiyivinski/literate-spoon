@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<goods>
+    <good>
+        <id>582480fa34d4d582480fa34d84</id>
+        <name>Vodka</name>
+        <description>The best thing after toast</description>
+        <price>42</price>
+        <available>12</available>
+        <hold>0</hold>
+        <sold>8</sold>
+    </good>
+</goods>
