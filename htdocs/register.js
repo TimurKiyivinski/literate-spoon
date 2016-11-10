@@ -39,9 +39,12 @@
 
     formError.innerHTML = ''
 
-    _.post('user.php', data => {
-      console.log('Server responded with the following:', data)
+    _.post('customer.php', data => {
+      if (data.err) {
+        formError.innerHTML = data.message
+      }
     }, {
+      method: 'register',
       email: email,
       fname: fname,
       lname: lname,

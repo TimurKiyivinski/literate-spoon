@@ -15,9 +15,12 @@
 
     formError.innerHTML = ''
 
-    _.post('login.php', data => {
-      console.log('Server responded with the following:', data)
+    _.post('customer.php', data => {
+      if (data.err) {
+        formError.innerHTML = data.message
+      }
     }, {
+      method: 'login',
       email: email,
       password: password,
       manager: false

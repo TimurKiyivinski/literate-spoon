@@ -5,28 +5,31 @@ const $ = document.querySelector.bind(document)
 
 // AJAX Library
 const _ = {
-  request: (method, url, callback, data) => {
+  get: (url, callback) => {
     const xmlhttp = new XMLHttpRequest()
     xmlhttp.onreadystatechange = function () {
       if (xmlhttp.readyState === XMLHttpRequest.DONE) {
         if (xmlhttp.status === 200) {
-          console.log(xmlhttp.responseText)
           callback(JSON.parse(xmlhttp.responseText))
         }
       }
     }
-    xmlhttp.open(method, url)
-    // Send data if added
-    if (data === false) {
-      xmlhttp.send()
-    } else {
-      xmlhttp.send(data)
-    }
+    xmlhttp.open('GET', url)
+    xmlhttp.send()
   },
-  post: (url, callback, data) => _.request('POST', url, callback, data),
-  get: (url, callback) => _.request('GET', url, callback, false),
-  put: (url, callback) => _.request('PUT', url, callback, false),
-  delete: (url, callback) => _.request('DELETE', url, callback, false)
+  post: (url, callback, data) => {
+    const xmlhttp = new XMLHttpRequest()
+    xmlhttp.onreadystatechange = function () {
+      if (xmlhttp.readyState === XMLHttpRequest.DONE) {
+        if (xmlhttp.status === 200) {
+          callback(JSON.parse(xmlhttp.responseText))
+        }
+      }
+    }
+    xmlhttp.open('POST', url, true)
+    xmlhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+    xmlhttp.send(JSON.stringify(data))
+  }
 }
 
 const re = {
