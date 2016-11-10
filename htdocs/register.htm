@@ -5,6 +5,26 @@
         <link rel="stylesheet" type="text/css" href="app.css"/>
     </head>
     <body>
+        <div class="col-12">
+            <h1>Register for BuyOnline</h1>
+            <p class="instruction">Fields indicated with * are optional</p>
+            <p class="error" id="formError"></p>
+            <form>
+                <label for="email">Email Address</label>
+                <input type="email" name="email" id="formEmail"/>
+                <label for="fname">First Name</label>
+                <input type="text" name="fname" id="formFirstName"/>
+                <label for="lname">Last Name</label>
+                <input type="text" name="lname" id="formLastName"/>
+                <label for="password">Password</label>
+                <input type="password" name="password" id="formPassword"/>
+                <label for="rpassword">Repeat Password</label>
+                <input type="password" name="rpassword" id="formRepeatPassword"/>
+                <label for="phone">* Phone Number</label>
+                <input type="text" name="phone" id="formPhone"/>
+                <button type="button" id="formButton">Register</button>
+            </form>
+        </div>
         <script type="text/javascript" src="app.js"></script>
     </body>
 </html>

@@ -1,3 +1,8 @@
+/* global XMLHttpRequest */
+
+// Query selector alias
+const $ = document.querySelector.bind(document)
+
 // AJAX Library
 const _ = {
   request: (method, url, callback, data) => {
@@ -23,3 +28,20 @@ const _ = {
   put: (url, callback) => _.request('PUT', url, callback, false),
   delete: (url, callback) => _.request('DELETE', url, callback, false)
 }
+
+const re = {
+  emailRegex: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+  nameRegex: /^[^\\\/&]*$/,
+  phoneRegex: /(\(0[\d]\)|0[\d] )\d{8}$/,
+  len: input => input.length > 0,
+  email: input => re.emailRegex.test(input),
+  name: input => re.len(input) && re.nameRegex.test(input),
+  phone: input => re.phoneRegex.test(input),
+  passwords: (a, b) => a === b && a.length > 0
+}
+
+;(function () {
+  const script = document.createElement('script')
+  script.src = `${window.location.pathname.split('/').pop().replace('.htm', '')}.js`
+  document.head.appendChild(script)
+})()
