@@ -27,9 +27,10 @@
 
     formError.innerHTML = ''
 
-    _.post('listing.php', data => {
-      console.log('Server responded with the following:', data)
+    _.post('good.php', data => {
+      formError.innerHTML = data.message
     }, {
+      method: 'add',
       name: name,
       price: price,
       quantity: quantity,
