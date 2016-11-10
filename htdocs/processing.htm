@@ -5,6 +5,40 @@
         <link rel="stylesheet" type="text/css" href="app.css"/>
     </head>
     <body>
+        <div class="col-4">
+            <ul class="nav">
+                <li><a href="listing.htm">Listing</a></li>
+                <li><a href="processing.htm">Processing</a></li>
+                <li><a href="logout.htm">Logout</a></li>
+            </ul>
+        </div>
+        <div class="col-8">
+            <h1>Processing form</h1>
+            <p class="error" id="formError"></p>
+            <table id="tableProcess">
+                <tr>
+                    <th>
+                        Item Number
+                    </th>
+                    <th>
+                        Item Name
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Quantity Available
+                    </th>
+                    <th>
+                        Quantity on Hold
+                    </th>
+                    <th>
+                        Quantity Sold
+                    </th>
+                </tr>
+            </table>
+            <button type="button" id="formButton">Process</button>
+        </div>
         <script type="text/javascript" src="app.js"></script>
     </body>
 </html>
