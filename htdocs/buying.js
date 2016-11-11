@@ -1,9 +1,52 @@
 /* global $ _ */
 
 ;(function () {
-  const formError = $('#formError')
   // User goods
   let carts = []
+  const formError = $('#formError')
+  const formMessage = $('#formMessage')
+
+  const updateCart = () => {
+    const catalog = $('#tableCart')
+    // Remove items
+    ;[...document.getElementsByClassName('cart')].map(element => element.remove())
+    // Recreate items
+    carts.map(good => {
+      const cartTr = document.createElement('tr')
+      cartTr.className = 'cart'
+
+      // Populate column data
+      ;['id', 'price', 'quantity'].map(key => {
+        const cartTd = document.createElement('td')
+        cartTd.innerHTML = good[key]
+        cartTr.appendChild(cartTd)
+      })
+
+      // Create remove button
+      const removeButton = document.createElement('button')
+      removeButton.innerHTML = 'Remove from cart'
+      removeButton.onclick = () => {
+        carts = carts.filter(cart => cart.id !== good.id)
+        cartTr.remove()
+        // Update server goods
+        _.post('good.php', data => {
+          update()
+        }, {
+          method: 'remove',
+          id: good.id,
+          quantity: good.quantity
+        })
+      }
+
+      // Add button
+      const cartTdButton = document.createElement('td')
+      cartTdButton.appendChild(removeButton)
+      cartTr.appendChild(cartTdButton)
+
+      catalog.appendChild(cartTr)
+    })
+  }
+
   // Update goods
   const update = () => {
     _.get('good.php', data => {
@@ -45,45 +88,7 @@
                       quantity: 1
                     })
                   }
-
-                  const catalog = $('#tableCart')
-                  // Remove items
-                  ;[...document.getElementsByClassName('cart')].map(element => element.remove())
-                  // Recreate items
-                  carts.map(good => {
-                    const cartTr = document.createElement('tr')
-                    cartTr.className = 'cart'
-
-                    // Populate column data
-                    ;['id', 'price', 'quantity'].map(key => {
-                      const cartTd = document.createElement('td')
-                      cartTd.innerHTML = good[key]
-                      cartTr.appendChild(cartTd)
-                    })
-
-                    // Create remove button
-                    const removeButton = document.createElement('button')
-                    removeButton.innerHTML = 'Remove from cart'
-                    removeButton.onclick = () => {
-                      carts = carts.filter(cart => cart.id !== good.id)
-                      cartTr.remove()
-                      // Update server goods
-                      _.post('good.php', data => {
-                        update()
-                      }, {
-                        method: 'remove',
-                        id: good.id,
-                        quantity: good.quantity
-                      })
-                    }
-
-                    // Add button
-                    const cartTdButton = document.createElement('td')
-                    cartTdButton.appendChild(removeButton)
-                    cartTr.appendChild(cartTdButton)
-
-                    catalog.appendChild(cartTr)
-                  })
+                  updateCart()
                 } else {
                   formError.innerHTML = data.message
                 }
@@ -109,11 +114,38 @@
   setInterval(update, 10 * 1000)
 
   const confirm = $('#formConfirm')
-  const cancel = $('#formCancel')
-
   confirm.onclick = () => {
-    _.post('good.php', data => {
-      console.log('Server responded with the following:', data)
-    }, {})
+    carts.map(good => {
+      _.post('good.php', data => {
+        if (!data.err) {
+          const due = carts.map(cart => cart.price * cart.quantity).reduce((a, b) => a + b)
+          formMessage.innerHTML = `Your purchase has been confirmed and total amount due to pay is $ ${due}`
+          carts = []
+          updateCart()
+        }
+      }, {
+        method: 'sell',
+        id: good.id,
+        quantity: good.quantity
+      })
+    })
+  }
+
+  const cancel = $('#formCancel')
+  cancel.onclick = () => {
+    carts.map(good => {
+      _.post('good.php', data => {
+        if (!data.err) {
+          formMessage.innerHTML = 'Your purchase request has been cancelled, welcome to shop next time'
+          carts = []
+          updateCart()
+          update()
+        }
+      }, {
+        method: 'remove',
+        id: good.id,
+        quantity: good.quantity
+      })
+    })
   }
 })()
