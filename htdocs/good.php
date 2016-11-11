@@ -63,6 +63,27 @@ if (isset($POST['method'])) {
                 }
             }
         }
+    } else if ($POST['method'] == "remove") {
+        if (isset($POST['id']) && isset($POST['quantity'])) {
+            $good = Good::find($POST['id']);
+            if ($good != false) {
+                $good->available = $good->available + $POST['quantity'];
+                $good->hold = $good->hold - $POST['quantity'];
+                $good->update();
+                echo json_encode([
+                    'err' => false,
+                    'data' => [
+                        'id' => $good->id,
+                        'name' => $good->name,
+                        'description' => $good->description,
+                        'price' => $good->price,
+                        'available' => $good->available,
+                        'hold' => $good->hold,
+                        'sold' => $good->sold
+                    ]
+                ]);
+            }
+        }
     }
 } else {
     // Default GET method
