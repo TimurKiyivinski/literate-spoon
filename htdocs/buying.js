@@ -6,7 +6,16 @@
   const formError = $('#formError')
   const formMessage = $('#formMessage')
 
+  // Calculate current due
+  const totalDue = () => carts.map(cart => cart.price * cart.quantity).reduce((a, b) => a + b)
+
   const updateCart = () => {
+    if (carts.length > 0) {
+      formMessage.innerHTML = `Total $ ${totalDue()}`
+    } else {
+      formMessage.innerHTML = ''
+    }
+
     const catalog = $('#tableCart')
     // Remove items
     ;[...document.getElementsByClassName('cart')].map(element => element.remove())
@@ -118,7 +127,7 @@
     carts.map(good => {
       _.post('good.php', data => {
         if (!data.err) {
-          const due = carts.map(cart => cart.price * cart.quantity).reduce((a, b) => a + b)
+          const due = totalDue()
           formMessage.innerHTML = `Your purchase has been confirmed and total amount due to pay is $ ${due}`
           carts = []
           updateCart()
@@ -131,8 +140,7 @@
     })
   }
 
-  const cancel = $('#formCancel')
-  cancel.onclick = () => {
+  const cancelOrder = () => {
     carts.map(good => {
       _.post('good.php', data => {
         if (!data.err) {
@@ -147,5 +155,16 @@
         quantity: good.quantity
       })
     })
+  }
+
+  const cancel = $('#formCancel')
+  cancel.onclick = () => {
+    cancelOrder()
+  }
+
+  const logout = $('#logout')
+  logout.onclick = () => {
+    cancelOrder()
+    window.location = 'logout.htm'
   }
 })()
