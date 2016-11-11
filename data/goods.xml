@@ -1,12 +1,48 @@
 <?xml version="1.0"?>
 <goods>
-    <good>
-        <id>582480fa34d4d582480fa34d84</id>
-        <name>Vodka</name>
-        <description>The best thing after toast</description>
-        <price>42</price>
-        <available>12</available>
-        <hold>0</hold>
-        <sold>8</sold>
-    </good>
+  <good>
+    <id>58256f7713f0158256f7713f45</id>
+    <name>Dell XPS 15</name>
+    <description>Dell XPS 15</description>
+    <price>7800</price>
+    <available>60</available>
+    <hold>0</hold>
+    <sold>0</sold>
+  </good>
+  <good>
+    <id>58256fecc6a9d58256fecc6add</id>
+    <name>Ducky Shine MX Blue Keyboard</name>
+    <description>Ducky Shine MX Blue Keyboard</description>
+    <price>550</price>
+    <available>72</available>
+    <hold>0</hold>
+    <sold>0</sold>
+  </good>
+  <good>
+    <id>582570143377258257014337be</id>
+    <name>Macbook Pro Late 2016</name>
+    <description>Macbook Pro Late 2016</description>
+    <price>7325469320987084320819757652314608</price>
+    <available>16</available>
+    <hold>0</hold>
+    <sold>0</sold>
+  </good>
+  <good>
+    <id>582570284eca9582570284ece7</id>
+    <name>Macbook Pro Adapter Bundle</name>
+    <description>Macbook Pro Adapter Bundle</description>
+    <price>16357621</price>
+    <available>128</available>
+    <hold>0</hold>
+    <sold>0</sold>
+  </good>
+  <good>
+    <id>5825706b4d9275825706b4d966</id>
+    <name>Exam Paper Answers</name>
+    <description>Exam Paper Answers</description>
+    <price>4000</price>
+    <available>12</available>
+    <hold>0</hold>
+    <sold>0</sold>
+  </good>
 </goods>

@@ -1,11 +1,43 @@
 <?xml version="1.0"?>
 <customers>
-    <customer>
-        <id>58247ec5ab5fc58247ec5ab631</id>
-        <fname>Timur</fname>
-        <lname>Kiyivinski</lname>
-        <email>timur@linux.com</email>
-        <password>abc123</password>
-        <contact>01 23456789</contact>
-    </customer>
+  <customer>
+    <id>58256ecf501b758256ecf501ef</id>
+    <email>timur@linux.com</email>
+    <fname>Timur</fname>
+    <lname>Kiyivinski</lname>
+    <password>abc123</password>
+    <phone/>
+  </customer>
+  <customer>
+    <id>582570abe3bae582570abe3bec</id>
+    <email>chad@localhost.com</email>
+    <fname>Chad</fname>
+    <lname>Wong</lname>
+    <password>chad</password>
+    <phone>01 23456789</phone>
+  </customer>
+  <customer>
+    <id>582576085867b58257608586b8</id>
+    <email>bob@localhost.com</email>
+    <fname>Bob</fname>
+    <lname>Bobblet</lname>
+    <password>bobby</password>
+    <phone/>
+  </customer>
+  <customer>
+    <id>5825763f1d11c5825763f1d15c</id>
+    <email>ross@localhost.com</email>
+    <fname>Ross</fname>
+    <lname>Lee</lname>
+    <password>rosslee</password>
+    <phone>(03)56783425</phone>
+  </customer>
+  <customer>
+    <id>58257672b937958257672b93b7</id>
+    <email>pope@localhost.com</email>
+    <fname>Pope</fname>
+    <lname>Sir</lname>
+    <password>pope123</password>
+    <phone/>
+  </customer>
 </customers>
