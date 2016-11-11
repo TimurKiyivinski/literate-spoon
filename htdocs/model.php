@@ -30,6 +30,13 @@ class Model {
         return get_called_class();
     }
 
+    // Create XML
+    public static function createXML() {
+        $root_tag = static::$xml_root;
+        $xml = new SimpleXMLElement("<$root_tag></$root_tag>");
+        $xml->asXML(static::$xml_dir);
+    }
+
     // Return class data as JSON data
     public function list_contents() {
         echo "<pre>" . json_encode($this->data) . "</pre>";
@@ -62,6 +69,8 @@ class Model {
                 $node->addChild($key, $this->data[$key]);
             }
             $xml->asXML(static::$xml_dir);
+        } else {
+            static::createXML();
         }
     }
 
@@ -80,6 +89,8 @@ class Model {
                 }
                 $index++;
             }
+        } else {
+            static::createXML();
         }
     }
 
@@ -99,7 +110,7 @@ class Model {
             }
             return $models;
         } else {
-            return false;
+            static::createXML();
         }
     }
 
@@ -119,7 +130,7 @@ class Model {
             }
             return $models;
         } else {
-            return false;
+            static::createXML();
         }
     }
 
@@ -139,7 +150,7 @@ class Model {
             }
             return $models;
         } else {
-            return false;
+            static::createXML();
         }
     }
 
@@ -156,6 +167,8 @@ class Model {
                 }
                 $index++;
             }
+        } else {
+            static::createXML();
         }
     }
 }

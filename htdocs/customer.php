@@ -52,7 +52,8 @@ if (isset($POST['method'])) {
                 // Return customer id on success
                 echo json_encode([
                     'err' => false,
-                    'id' => $customer->id
+                    'id' => $customer->id,
+                    'redirect' => 'login.htm'
                 ]);
             } else {
                 // Return error if email is not unique
