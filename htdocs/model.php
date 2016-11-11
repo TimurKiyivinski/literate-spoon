@@ -83,10 +83,6 @@ class Model {
         }
     }
 
-    // Delete current instance
-    public function delete() {
-    }
-
     // Return a list of all returned model instances
     public static function all() {
         if (file_exists(static::$xml_dir)) {
@@ -144,6 +140,22 @@ class Model {
             return $models;
         } else {
             return false;
+        }
+    }
+
+    // Delete instance based on id
+    public static function delete($id) {
+        if (file_exists(static::$xml_dir)) {
+            $xml = simplexml_load_file(static::$xml_dir);
+            $index = 0;
+            foreach ($xml->children() as $parent_key => $child) {
+                if ($child->id == $id) {
+                    unset($xml->good[$index]);
+                    $xml->asXML(static::$xml_dir);
+                    return;
+                }
+                $index++;
+            }
         }
     }
 }

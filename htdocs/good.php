@@ -105,6 +105,19 @@ if (isset($POST['method'])) {
                 ]);
             }
         }
+    } else if ($POST['method'] == "process") {
+        $goods = Good::all();
+        foreach ($goods as $good) {
+            if ($good->available == 0 && $good->hold == 0) {
+                Good::delete($good->id);
+            } else {
+                $good->sold = 0;
+                $good->update();
+            }
+        }
+        echo json_encode([
+            'err' => false
+        ]);
     }
 } else {
     // Default GET method

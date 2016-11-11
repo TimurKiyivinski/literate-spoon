@@ -3,8 +3,26 @@
 ;(function () {
   // Update goods
   const update = () => {
-    _.get('goods.php', data => {
-      console.log('Server responded with the following:', data)
+    _.get('good.php', data => {
+      if (!data.err) {
+        // Remove old items
+        [...document.getElementsByClassName('item')].map(element => element.remove())
+
+        const process = $('#tableProcess')
+        data.data.map(good => {
+          const tr = document.createElement('tr')
+          tr.className = 'item'
+
+          // Populate column data
+          ;['id', 'name', 'price', 'available', 'hold', 'sold'].map(key => {
+            const td = document.createElement('td')
+            td.innerHTML = good[key]
+            tr.appendChild(td)
+          })
+          // Append row to catalog
+          process.appendChild(tr)
+        })
+      }
     })
   }
   update()
@@ -13,8 +31,12 @@
   const submit = $('#formButton')
 
   submit.onclick = () => {
-    _.post('goods.php', data => {
-      console.log('Server responded with the following:', data)
-    }, {})
+    _.post('good.php', data => {
+      if (!data.err) {
+        update()
+      }
+    }, {
+      method: 'process'
+    })
   }
-})
+})()
