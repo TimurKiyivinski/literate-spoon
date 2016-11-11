@@ -72,10 +72,14 @@ if (isset($POST['method'])) {
                 foreach ($managers as $manager) {
                     if ($POST['email'] == $manager[0]) {
                         if ($POST['password'] == $manager[1]) {
+                            session_start();
+                            $_SESSION['user_id'] = $manager[0];
+                            $_SESSION['manager'] = true;
                             // Return manager id on success
                             echo json_encode([
                                 'err' => false,
-                                'id' => $manager[0]
+                                'id' => $manager[0],
+                                'redirect' => 'processing.htm'
                             ]);
                         } else {
                             // Return error if password is wrong
@@ -102,10 +106,14 @@ if (isset($POST['method'])) {
                     ]);
                 } else {
                     if ($POST['password'] == $customer->password) {
+                        session_start();
+                        $_SESSION['user_id'] = $customer->email;
+                        $_SESSION['manager'] = false;
                         // Return customer id on success
                         echo json_encode([
                             'err' => false,
-                            'id' => $customer->id
+                            'id' => $customer->id,
+                            'redirect' => 'buying.htm'
                         ]);
                     } else {
                         // Return error if password is wrong

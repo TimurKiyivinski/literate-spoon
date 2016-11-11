@@ -10,7 +10,12 @@ const _ = {
     xmlhttp.onreadystatechange = function () {
       if (xmlhttp.readyState === XMLHttpRequest.DONE) {
         if (xmlhttp.status === 200) {
-          callback(JSON.parse(xmlhttp.responseText))
+          const data = JSON.parse(xmlhttp.responseText)
+          if (data.redirect) {
+            window.location = data.redirect
+          } else {
+            callback(data)
+          }
         }
       }
     }
@@ -22,7 +27,12 @@ const _ = {
     xmlhttp.onreadystatechange = function () {
       if (xmlhttp.readyState === XMLHttpRequest.DONE) {
         if (xmlhttp.status === 200) {
-          callback(JSON.parse(xmlhttp.responseText))
+          const data = JSON.parse(xmlhttp.responseText)
+          if (data.redirect) {
+            window.location = data.redirect
+          } else {
+            callback(data)
+          }
         }
       }
     }

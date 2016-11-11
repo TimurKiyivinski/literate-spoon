@@ -1,6 +1,8 @@
 /* global $ _ */
 
 ;(function () {
+  const formError = $('#formError')
+
   // Update goods
   const update = () => {
     _.get('good.php', data => {
@@ -34,6 +36,8 @@
     _.post('good.php', data => {
       if (!data.err) {
         update()
+      } else {
+        formError.innerHTML = data.message
       }
     }, {
       method: 'process'
