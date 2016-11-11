@@ -44,7 +44,7 @@ const _ = {
 
 const re = {
   emailRegex: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
-  nameRegex: /^[a-zA-Z\s]*$/,
+  nameRegex: /^[a-zA-Z0-9\s]*$/,
   phoneRegex: /(\(0[\d]\)|0[\d] )\d{8}$/,
   numberRegex: /^\d+$/,
   len: input => input.length > 0,

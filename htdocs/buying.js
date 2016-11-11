@@ -7,13 +7,15 @@
   const formMessage = $('#formMessage')
 
   // Calculate current due
-  const totalDue = () => carts.map(cart => cart.price * cart.quantity).reduce((a, b) => a + b)
+  const totalDue = () => carts.map(cart => cart.price * cart.quantity).reduce((a, b) => a + b, 0)
+  const totalDueClear = () => [totalDue()].map(value => {
+    carts = []
+    return value
+  }).reduce((a, b) => a + b)
 
   const updateCart = () => {
     if (carts.length > 0) {
       formMessage.innerHTML = `Total $ ${totalDue()}`
-    } else {
-      formMessage.innerHTML = ''
     }
 
     const catalog = $('#tableCart')
@@ -127,9 +129,7 @@
     carts.map(good => {
       _.post('good.php', data => {
         if (!data.err) {
-          const due = totalDue()
-          formMessage.innerHTML = `Your purchase has been confirmed and total amount due to pay is $ ${due}`
-          carts = []
+          formMessage.innerHTML = `Your purchase has been confirmed and total amount due to pay is $ ${totalDueClear()}`
           updateCart()
         }
       }, {
