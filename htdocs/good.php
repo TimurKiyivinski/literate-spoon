@@ -35,6 +35,34 @@ if (isset($POST['method'])) {
                 'message' => 'The item has been listed in the system, and the item number is: ' . $good->id
             ]);
         }
+    } else if ($POST['method'] == "cart") {
+        if (isset($POST['id'])) {
+            $good = Good::find($POST['id']);
+            if ($good != false) {
+                if ($good->available > 0) {
+                    $good->available = $good->available - 1;
+                    $good->hold = $good->hold + 1;
+                    $good->update();
+                    echo json_encode([
+                        'err' => false,
+                        'data' => [
+                            'id' => $good->id,
+                            'name' => $good->name,
+                            'description' => $good->description,
+                            'price' => $good->price,
+                            'available' => $good->available,
+                            'hold' => $good->hold,
+                            'sold' => $good->sold
+                        ]
+                    ]);
+                } else {
+                    echo json_encode([
+                        'err' => true,
+                        'message' => 'Sorry this item is not available for sale'
+                    ]);
+                }
+            }
+        }
     }
 } else {
     // Default GET method

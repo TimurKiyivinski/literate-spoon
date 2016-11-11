@@ -67,6 +67,20 @@ class Model {
 
     // Update current instance data
     public function update() {
+        if (file_exists(static::$xml_dir)) {
+            $xml = simplexml_load_file(static::$xml_dir);
+            $index = 0;
+            foreach ($xml->children() as $parent_key => $child) {
+                if ($child->id == $this->data["id"]) {
+                    foreach (array_keys($this->data) as $key) {
+                        $xml->good[$index]->$key  = $this->data[$key];
+                    }
+                    $xml->asXML(static::$xml_dir);
+                    return;
+                }
+                $index++;
+            }
+        }
     }
 
     // Delete current instance

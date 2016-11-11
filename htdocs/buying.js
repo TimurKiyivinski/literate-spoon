@@ -1,11 +1,9 @@
 /* global $ _ */
 
 ;(function () {
-  // Add item to cart
-  const add = () => {
-    console.log('Add')
-  }
-
+  const formError = $('#formError')
+  // User goods
+  const carts = []
   // Update goods
   const update = () => {
     _.get('good.php', data => {
@@ -15,28 +13,59 @@
 
         // Refresh items
         const catalog = $('#tableCatalog')
-        data.data.map(good => {
-          const tr = document.createElement('tr')
-          tr.className = 'item'
+        data.data
+          .filter(good => good.available > 0)
+          .map(good => {
+            const tr = document.createElement('tr')
+            tr.className = 'item'
 
-          // Populate column data
-          ;['id', 'name', 'description', 'price', 'available'].map(key => {
-            const td = document.createElement('td')
-            td.innerHTML = good[key]
-            tr.append(td)
+            // Populate column data
+            ;['id', 'name', 'description', 'price', 'available'].map(key => {
+              const td = document.createElement('td')
+              td.innerHTML = good[key]
+              tr.appendChild(td)
+            })
+
+            // Create add button
+            const addButton = document.createElement('button')
+            // Button click handler
+            addButton.onclick = () => {
+              _.post('good.php', data => {
+                // Handle returned data
+                if (!data.err) {
+                  carts.push(data.data)
+                  const catalog = $('#tableCart')
+                  carts.map(good => {
+                    const cartTr = document.createElement('tr')
+                    cartTr.className = 'cart'
+
+                    // Populate column data
+                    ;['id', 'price', 'available'].map(key => {
+                      const cartTd = document.createElement('td')
+                      cartTd.innerHTML = good[key]
+                      cartTr.appendChild(cartTd)
+                    })
+                    catalog.appendChild(cartTr)
+                  })
+                } else {
+                  formError.innerHTML = data.message
+                }
+                update()
+              }, {
+                method: 'cart',
+                id: good.id
+              })
+            }
+
+            // Add button
+            addButton.innerHTML = 'Add'
+            const tdButton = document.createElement('td')
+            tdButton.appendChild(addButton)
+            tr.appendChild(tdButton)
+
+            // Append row to catalog
+            catalog.appendChild(tr)
           })
-
-          // Create add button
-          const addButton = document.createElement('button')
-          addButton.onclick = add
-          addButton.innerHTML = 'Add'
-          const tdButton = document.createElement('td')
-          tdButton.append(addButton)
-          tr.append(tdButton)
-
-          // Append row to catalog
-          catalog.append(tr)
-        })
       }
     })
   }

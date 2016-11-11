@@ -2,6 +2,7 @@
 
 ;(function () {
   const submit = $('#formButton')
+  const reset = $('#formReset')
   const formError = $('#formError')
 
   submit.onclick = () => {
@@ -36,5 +37,12 @@
       quantity: quantity,
       description: description
     })
+  }
+
+  reset.onclick = () => {
+    $('#formName').value = ''
+    $('#formPrice').value = ''
+    $('#formQuantity').value = ''
+    $('#formDescription').value = ''
   }
 })()
